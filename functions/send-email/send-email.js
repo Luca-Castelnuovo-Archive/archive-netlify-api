@@ -17,6 +17,7 @@ exports.handler = (event, context, callback) => {
     })
   }
 
+  // User data
   const body = JSON.parse(event.body)
   try {
     validateLength('body.g-recaptcha-response', body["g-recaptcha-response"], 256, 1024)
@@ -51,6 +52,7 @@ exports.handler = (event, context, callback) => {
     })
   }
 
+  // Email settings
   try {
     validateLength('body.contact_email', body.contact_email, 16, 256)
   } catch (e) {
@@ -76,6 +78,7 @@ exports.handler = (event, context, callback) => {
     })
   }
 
+  // Compile additional data
   var additional = [];
   for (var key in body) {
     if (body.hasOwnProperty(key) && key !== "name" && key !== "email" && key !== "message" && key !== "g-recaptcha-response") {
@@ -83,6 +86,7 @@ exports.handler = (event, context, callback) => {
     }
   };
 
+  // Create message
   const msg = {
     to: body.contact_email,
     from: 'no-reply@lucacastelnuovo.nl',
@@ -95,6 +99,7 @@ exports.handler = (event, context, callback) => {
     },
   };
 
+  // Validate Captcha
   // const recaptcha = new Recaptcha({secret: process.env.RECAPTCHA_KEY})
   // recaptcha.verify({response: body["g-recaptcha-response"]}, (error) => {
   //   if (error) {
@@ -105,6 +110,7 @@ exports.handler = (event, context, callback) => {
   //   }
   // })
 
+  // Send email
   sgMail.setApiKey(process.env.SENDGRID_KEY);
   sgMail
   .send(msg)
