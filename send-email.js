@@ -60,6 +60,7 @@ function handleFormSubmit() {
     buttonsState(false, form);
 
     console.log('handleFormSubmit', data);
+    return; // disable the actual sending part
 
     fetch(form.action, {
             method: "post",
