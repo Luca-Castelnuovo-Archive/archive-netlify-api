@@ -1,6 +1,5 @@
 const sgMail = require('@sendgrid/mail')
 const Recaptcha = require('google-recaptcha')
-const fetch = require("node-fetch")
 const {
     validateEmail,
     validateLength,

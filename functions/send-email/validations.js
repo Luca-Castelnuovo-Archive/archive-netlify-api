@@ -1,3 +1,5 @@
+const fetch = require("node-fetch")
+
 exports.validateEmail = (ctx, str) => {
     if (typeof str !== 'string' && !(str instanceof String)) {
         throw TypeError(`${ctx} must be a string`)
