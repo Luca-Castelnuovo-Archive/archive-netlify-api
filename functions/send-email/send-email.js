@@ -85,7 +85,7 @@ exports.handler = (event, context, callback) => {
     // Compile additional data
     var additional = [];
     for (var key in body) {
-        if (body.hasOwnProperty(key) && key !== "name" && key !== "email" && key !== "message" && key !== "g-recaptcha-response") {
+        if (body.hasOwnProperty(key) && key !== "name" && key !== "email" && key !== "message" && key !== "g-recaptcha-response" && key !== "contact_email" && key !== "template_id") {
             additional.push(key + ' = ' + body[key]);
         }
     };
@@ -124,6 +124,6 @@ exports.handler = (event, context, callback) => {
         }))
         .catch(error => callback(null, {
             statusCode: 500,
-            body: `sendgrid error: ${error.message}`
+            body: error.message
         }));
 }
