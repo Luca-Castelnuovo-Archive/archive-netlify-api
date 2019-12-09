@@ -60,6 +60,14 @@ exports.handler = (event, context, callback) => {
     })
   }
   try {
+    validateContactEmail(body.contact_email)
+  } catch (e) {
+    return callback(null, {
+      statusCode: 403,
+      body: e.message
+    })
+  }
+  try {
     validateLength('body.template_id', body.template_id, 30, 35)
   } catch (e) {
     return callback(null, {

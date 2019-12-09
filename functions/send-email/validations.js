@@ -33,3 +33,18 @@ exports.validateLength = (ctx, str, ...args) => {
     throw TypeError(`${ctx} must contain ${max} chars at most`)
   }
 }
+
+exports.validateContactEmail = (email) => {
+  const url = 'https://test.lucacastelnuovo.nl/users/Luca-Castelnuovo/configuration/netlify_api.json';
+  fetch(url)
+  .then((resp) => resp.json())
+  .then(data => {
+    const allowedRecipients = data.send_email.allowed_recipients;
+    if (!allowedRecipients.includes(email)) {
+      throw TypeError(`${email} is not a valid recipient`)
+    }
+  })
+  .catch(function(error) {
+    console.error(JSON.stringify(error));
+  });
+}
