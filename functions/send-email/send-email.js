@@ -1,5 +1,6 @@
 const sgMail = require('@sendgrid/mail')
 const Recaptcha = require('google-recaptcha')
+const fetch = require("node-fetch")
 const {
     validateEmail,
     validateLength,
@@ -124,6 +125,6 @@ exports.handler = (event, context, callback) => {
         }))
         .catch(error => callback(null, {
             statusCode: 500,
-            body: error.message
+            body: `sendgrid error: ${error.message}`
         }));
 }
