@@ -1,0 +1,15 @@
+{
+  "name": "send-email",
+  "version": "1.0.0",
+  "description": "",
+  "main": "send-email.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Castelnuovo <ltcastelnuovo@gmail.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "google-recaptcha": "^1.1.0"
+  }
+}
