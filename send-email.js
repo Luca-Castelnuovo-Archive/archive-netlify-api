@@ -56,7 +56,7 @@ function handleFormSubmit() {
     document.querySelector("#email_invalid").style.display = "none";
     buttonsState(false, form);
 
-    fetch(form.action, {
+    fetch("https://netlify.lucacastelnuovo.nl/api/send-email", {
             method: "post",
             body: JSON.stringify(data)
         })
