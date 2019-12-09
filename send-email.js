@@ -41,9 +41,6 @@ function getFormData(form) {
         }
     });
 
-    console.log('getFormData fields', fields);
-    console.log('getFormData formData', formData);
-
     return formData;
 }
 
@@ -58,9 +55,6 @@ function handleFormSubmit() {
 
     document.querySelector("#email_invalid").style.display = "none";
     buttonsState(false, form);
-
-    console.log('handleFormSubmit', data);
-    return; // disable the actual sending part
 
     fetch(form.action, {
             method: "post",
