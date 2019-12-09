@@ -2,7 +2,8 @@ const sgMail = require('@sendgrid/mail')
 const Recaptcha = require('google-recaptcha')
 const {
     validateEmail,
-    validateLength
+    validateLength,
+    validateContactEmail
 } = require('./validations')
 
 
