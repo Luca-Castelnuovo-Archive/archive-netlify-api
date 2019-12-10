@@ -44,18 +44,11 @@ exports.validateContactEmail = (email) => {
     fetch(process.env.CONFIG_URL)
         .then((resp) => resp.json())
         .then(data => {
-            const allowedRecipients = data.send_email.allowed_recipients;
-        
-            console.log(email);
-            console.log(JSON.stringify(allowedRecipients));
-            console.log(JSON.stringify(allowedRecipients.includes(email)));
-        
+            const allowedRecipients = data.send_email.allowed_recipients; 
             if (!allowedRecipients.includes(email)) {
-                console.log('email invalid')
+                console.error(`${email} is not a valid recipient`)
                 throw TypeError(`${email} is not a valid recipient`)
             }
-        
-            console.log('email valid')
         })
         .catch(function (error) {
             console.error(JSON.stringify(error));
