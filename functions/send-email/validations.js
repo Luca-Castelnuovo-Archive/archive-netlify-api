@@ -62,13 +62,13 @@ exports.validateCaptcha = (response) => {
     if (!process.env.RECAPTCHA_KEY) {
         throw TypeError("process.env.RECAPTCHA_KEY must be defined")
     }
-    
-    console.log(response);
-    
+
     const recaptcha = new Recaptcha({secret: process.env.RECAPTCHA_KEY})
     recaptcha.verify({response: response}, (error) => {
       if (error) {
+        console.log('captcha invalid')
         throw TypeError("invalid captcha response")
       }
+      console.log('captcha valid')
     })
 }
