@@ -45,6 +45,10 @@ exports.validateContactEmail = (email) => {
         .then((resp) => resp.json())
         .then(data => {
             const allowedRecipients = data.send_email.allowed_recipients;
+        
+            console.log(JSON.stringify(allowedRecipients));
+            console.log(JSON.stringify(data));
+        
             if (!allowedRecipients.includes(email)) {
                 throw TypeError(`${email} is not a valid recipient`)
             }
