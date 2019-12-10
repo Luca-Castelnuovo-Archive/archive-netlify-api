@@ -26,14 +26,14 @@ exports.handler = (event, context, callback) => {
             body: e.message
         })
     }
-//     try {
-//         validateCaptcha(body["g-recaptcha-response"])
-//     } catch (e) {
-//         return callback(null, {
-//             statusCode: 403,
-//             body: e.message
-//         })
-//     }
+    try {
+        validateCaptcha(body["g-recaptcha-response"])
+    } catch (e) {
+        return callback(null, {
+            statusCode: 403,
+            body: e.message
+        })
+    }
 
     // User Data
     try {
