@@ -49,8 +49,5 @@ exports.validateContactEmail = (email) => {
                 console.error(`${email} is not a valid recipient`)
                 throw TypeError(`${email} is not a valid recipient`)
             }
-        })
-        .catch(function (error) {
-            console.error(JSON.stringify(error));
         });
 }
