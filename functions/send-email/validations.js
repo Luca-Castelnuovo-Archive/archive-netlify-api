@@ -1,4 +1,5 @@
 const fetch = require("node-fetch")
+const Recaptcha = require('google-recaptcha')
 
 exports.validateEmail = (ctx, str) => {
     if (typeof str !== 'string' && !(str instanceof String)) {
@@ -55,4 +56,17 @@ exports.validateContactEmail = (email) => {
         console.error(`${email} is not a valid recipient`)
         throw TypeError(`${email} is not a valid recipient`)
     }
+}
+
+exports.validateCaptcha = (response) => {
+    if (!process.env.RECAPTCHA_KEY) {
+        throw TypeError("process.env.RECAPTCHA_KEY must be defined")
+    }
+    
+    const recaptcha = new Recaptcha({secret: process.env.RECAPTCHA_KEY})
+    recaptcha.verify({response: response}, (error) => {
+      if (error) {
+        throw TypeError("invalid captcha response")
+      }
+    })
 }
