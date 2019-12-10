@@ -52,7 +52,7 @@ exports.validateContactEmail = (email) => {
             console.log(JSON.stringify(error))
         });
     
-    if (!allowedRecipients.includes(email)) {
+    if (allowedRecipients && !allowedRecipients.includes(email)) {
         console.error(`${email} is not a valid recipient`)
         throw TypeError(`${email} is not a valid recipient`)
     }
