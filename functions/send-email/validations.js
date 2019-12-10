@@ -40,16 +40,19 @@ exports.validateContactEmail = (email) => {
     if (!process.env.CONFIG_URL) {
         throw TypeError("process.env.CONFIG_URL must be defined")
     }
+    
+    const allowedRecipients = [];
 
     fetch(process.env.CONFIG_URL)
         .then((resp) => resp.json())
         .then(data => {
-            const allowedRecipients = data.send_email.allowed_recipients; 
-            if (!allowedRecipients.includes(email)) {
-                console.error(`${email} is not a valid recipient`)
-                throw TypeError(`${email} is not a valid recipient`)
-            }
+            allowedRecipients = data.send_email.allowed_recipients; 
         }).catch(function (error) {
-            throw TypeError(error)
+            console.log(JSON.stringify(error))
         });
+    
+    if (!allowedRecipients.includes(email)) {
+        console.error(`${email} is not a valid recipient`)
+        throw TypeError(`${email} is not a valid recipient`)
+    }
 }
