@@ -3,6 +3,7 @@ const Recaptcha = require('google-recaptcha')
 const {
     validateEmail,
     validateLength,
+    validateCaptcha,
     validateContactEmail
 } = require('./validations')
 
@@ -104,15 +105,14 @@ exports.handler = (event, context, callback) => {
     };
 
     // Validate Captcha
-    const recaptcha = new Recaptcha({secret: process.env.RECAPTCHA_KEY})
-    recaptcha.verify({response: body["g-recaptcha-response"]}, (error) => {
-      if (error) {
-        callback(null, {
-          statusCode: 500,
-          body: error
-        })
-      }
-    })
+//     try {
+//         validateCaptcha(body["g-recaptcha-response"])
+//     } catch (e) {
+//         return callback(null, {
+//             statusCode: 403,
+//             body: e.message
+//         })
+//     }
 
     // Send email
     sgMail.setApiKey(process.env.SENDGRID_KEY);
