@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
 
     // Email settings
     try {
-        validateLength('body.contact_email', body.contact_email, 16, 256)
+        validateEmail('body.contact_email', body.contact_email)
     } catch (e) {
         return callback(null, {
             statusCode: 403,
