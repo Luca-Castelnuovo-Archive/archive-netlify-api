@@ -14,15 +14,10 @@ exports.handler = (event, context, callback) => {
             body: 'process.env.SENDGRID_KEY must be defined'
         })
     }
-    if (!process.env.RECAPTCHA_KEY) {
-        return callback(null, {
-            statusCode: 500,
-            body: 'process.env.RECAPTCHA_KEY must be defined'
-        })
-    }
 
-    // User data
     const body = JSON.parse(event.body)
+    
+    // Validate Captcha
     try {
         validateLength('body.g-recaptcha-response', body["g-recaptcha-response"], 256, 1024)
     } catch (e) {
@@ -31,6 +26,16 @@ exports.handler = (event, context, callback) => {
             body: e.message
         })
     }
+//     try {
+//         validateCaptcha(body["g-recaptcha-response"])
+//     } catch (e) {
+//         return callback(null, {
+//             statusCode: 403,
+//             body: e.message
+//         })
+//     }
+
+    // User Data
     try {
         validateLength('body.name', body.name, 3, 50)
     } catch (e) {
@@ -102,16 +107,6 @@ exports.handler = (event, context, callback) => {
             additional: additional.join('\n')
         },
     };
-
-    // Validate Captcha
-//     try {
-//         validateCaptcha(body["g-recaptcha-response"])
-//     } catch (e) {
-//         return callback(null, {
-//             statusCode: 403,
-//             body: e.message
-//         })
-//     }
 
     // Send email
     sgMail.setApiKey(process.env.SENDGRID_KEY);
